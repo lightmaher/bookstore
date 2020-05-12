@@ -37,6 +37,7 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request ,[
+            'image'=>'image|nullable|max:1999',
             'title'=>'required',
             'author'=>'required',
             'body'=>'required',
@@ -45,7 +46,18 @@ class BooksController extends Controller
             'ISBN'=>'required'
 
         ]);
+        if($request->hasFile('image')){
+            $filenameWithExt=$request->file('image')->getClientOriginalName();
+            $filename=pathinfo($filenameWithExt , PATHINFO_FILENAME);
+            $fileExt=$request->file('image')->getClientOriginalExtension();
+            $filetostore=$filename.'_'.time().'.'.$fileExt;
+            $path=$request->file('image')->storeAs('public/images' , $filetostore);
+        }else{
+            $filetostore='noimage.jpg';
+        }
+
         $book = new book;
+        $book->image= $filetostore;
         $book->title = $request->input('title');
         $book->author = $request->input('author');
         $book->body = $request->input('body');
@@ -91,6 +103,7 @@ class BooksController extends Controller
     {
         $book=book::find($id);
         $this->validate($request , [
+            'image'=>'image|nullable|max:1999',
             'title'=>'required',
             'author'=>'required',
             'body'=>'required',
@@ -98,7 +111,17 @@ class BooksController extends Controller
             'num_of_books'=>'required',
             'ISBN'=>'required'
             ]);
-
+        if($request->hasFile('image')){
+            $filenameWithExt=$request->file('image')->getClientOriginalName();
+            $filename=pathinfo($filenameWithExt , PATHINFO_FILENAME);
+            $fileExt=$request->file('image')->getClientOriginalExtension();
+            $filetostore=$filename.'_'.time().'.'.$fileExt;
+            $path=$request->file('image')->storeAs('public/images' , $filetostore);
+        }
+        if($request->hasFile('image')){
+             $book->image=$filetostore;
+        }
+        $book->image= $filetostore;
         $book->title=$request->input('title');
         $book->author=$request->input('author');
         $book->body=$request->input('body');
