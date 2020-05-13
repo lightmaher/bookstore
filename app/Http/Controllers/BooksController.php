@@ -14,7 +14,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $books = book::orderby('created_at','desc')->get();
+        return view('books.index')->with('books',$books);
     }
 
     /**
@@ -51,7 +52,7 @@ class BooksController extends Controller
             $filename=pathinfo($filenameWithExt , PATHINFO_FILENAME);
             $fileExt=$request->file('image')->getClientOriginalExtension();
             $filetostore=$filename.'_'.time().'.'.$fileExt;
-            $path=$request->file('image')->storeAs('public/images' , $filetostore);
+            $path=$request->file('image')->storeAs('public/Images' , $filetostore);
         }else{
             $filetostore='noimage.jpg';
         }
@@ -116,7 +117,7 @@ class BooksController extends Controller
             $filename=pathinfo($filenameWithExt , PATHINFO_FILENAME);
             $fileExt=$request->file('image')->getClientOriginalExtension();
             $filetostore=$filename.'_'.time().'.'.$fileExt;
-            $path=$request->file('image')->storeAs('public/images' , $filetostore);
+            $path=$request->file('image')->storeAs('public/Images' , $filetostore);
         }
         if($request->hasFile('image')){
              $book->image=$filetostore;
