@@ -67,7 +67,7 @@ class BooksController extends Controller
         $book->ISBN = $request->input('ISBN');
         $book->save();
 
-        return redirect('/home')->with('success' , 'book added');
+        return redirect('/books')->with('success' , 'book added');
     }
 
     /**
@@ -78,7 +78,8 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = book::find($id);
+        return view('books.show')->with('book',$book);
     }
 
     /**
@@ -130,7 +131,7 @@ class BooksController extends Controller
         $book->num_of_books=$request->input('num_of_books');
         $book->ISBN = $request->input('ISBN');
         $book->save();
-        return redirect('/home')->with('success' , 'book Updated');
+        return redirect('/books')->with('success' , 'book Updated');
     }
 
     /**
