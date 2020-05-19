@@ -23,7 +23,7 @@
     <div class="col-md-8"> 
    <div class="card border-dark" style="width: 70rem; hight:70rem;">
   
-   <img class="card-img-top" src="/storage/images/{{$book->image}}" alt=" book image " width="150" height="450">
+   <img class="card-img-top" src="/storage/Images/{{$book->image}}" alt=" book image " width="150" height="450">
     <div class="card-body">
     <h1 class="card-title" > {{$book->title}} </h2>
   
@@ -32,6 +32,8 @@
     <p class="card-text"> {{$book->body}} </p>
        <hr>
        @if(!Auth::guest())
+       @if(auth()->user()->id == 1)
+
        <div class="btn-group" role="group" aria-label="Basic example">
         
         <form action="/books/{{$book->id}}" method="POST" >
@@ -42,6 +44,7 @@
         <input id="submit" type="submit" value="Delete" class="btn btn-danger">       
         </form>
         </div>
+    @endif
     @endif
   
     </div>
@@ -59,8 +62,11 @@
   <h3 >Free delivery worldwide <i class="fa fa-rocket" style="font-size:36px;color:green"></i>
 </h3>
   <hr>
-  <button type="button" class="btn btn-primary btn-lg">Add to card </button>
-
+  @if(!Auth::guest())
+       @if(auth()->user()->id == 1)
+  <button type="button" class="btn btn-primary btn-lg">Add to cart </button>
+ @endif
+    @endif
 
    </div>
    </div>

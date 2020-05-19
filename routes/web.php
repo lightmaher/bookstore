@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+route::group(['middleware' => 'auth'], function(){
+    route::get('/home',function(){
+        return view('home');
+    })->name('home');
+    route::get('/',function(){
+        return view('welcome');
+    })->name('welcome');
+});
 
 Auth::routes();
 Route::resource('books','BooksController');

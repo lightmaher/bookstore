@@ -7,6 +7,10 @@ use App\book;
 
 class BooksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin' , ['except' => ['show' , 'index']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +48,7 @@ class BooksController extends Controller
             'body'=>'required',
             'price'=>'required',
             'num_of_books'=>'required',
-            'ISBN'=>'required'
+            'ISBN'=>'required|size:9'
 
         ]);
         if($request->hasFile('image')){
@@ -111,7 +115,7 @@ class BooksController extends Controller
             'body'=>'required',
             'price'=>'required',
             'num_of_books'=>'required',
-            'ISBN'=>'required'
+            'ISBN'=>'required|size:9'
             ]);
         if($request->hasFile('image')){
             $filenameWithExt=$request->file('image')->getClientOriginalName();
@@ -123,7 +127,6 @@ class BooksController extends Controller
         if($request->hasFile('image')){
              $book->image=$filetostore;
         }
-        $book->image= $filetostore;
         $book->title=$request->input('title');
         $book->author=$request->input('author');
         $book->body=$request->input('body');
@@ -145,7 +148,7 @@ class BooksController extends Controller
        
             $book = book::find($id);
             if($book->image!=="noimage.jpg"){
-                Storage::delete('public/images/'.$book->image);
+                Storage::delete('public/Images/'.$book->image);
             }
             $book->delete();
     
