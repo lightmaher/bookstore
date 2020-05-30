@@ -170,4 +170,13 @@ class BooksController extends Controller
         }
         return redirect('/books')->with('error' , 'Book is not available now');
     }
+     public function showcart(){
+        if(session()->has('cart')){
+           $cart= new cart(session()->get('cart'));
+        }
+        else{
+            $cart = new cart();
+        }
+        return view('cart/show')->with('cart',$cart);
+    }
 }
