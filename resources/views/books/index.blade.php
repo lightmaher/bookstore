@@ -18,6 +18,9 @@
        <div class="card-body">
         <h1 class="dard-title"><a href='books/{{$book->id}}'>{{$book->title}}</a></h1>
        <p class="card-text">by : {{$book->author}}</p>
+       @if(Auth::user()->id !=1)
+            <a href="{{route('cart.add',$book->id)}}" class="btn btn-primary">Add to cart</a>
+       @endif
    </div>
    </div>
          

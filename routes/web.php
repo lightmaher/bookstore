@@ -29,3 +29,4 @@ Auth::routes();
 Route::resource('books','BooksController');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/addtocart/{book}', 'BooksController@AddtoCart')->name('cart.add');

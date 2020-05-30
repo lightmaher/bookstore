@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\book;
+use App\cart;
 
 class BooksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin' , ['except' => ['show' , 'index']]);
+        $this->middleware('admin' , ['except' => ['show' , 'AddtoCart' , 'index']]);
     }
     /**
      * Display a listing of the resource.
@@ -152,8 +153,21 @@ class BooksController extends Controller
             }
             $book->delete();
     
-            return redirect('/books')->with('success' , 'Book Deleted');
-    
-        
+            return redirect('/books')->with('success' , 'Book Deleted');   
+    }
+    public function AddtoCart(book $book){
+        if($book->num_of_books > 0)
+        {
+            if(session()->has('cart')){
+            $cart= new cart(session()->get('cart'));
+            }
+            else{
+                $cart = new cart();
+            }
+            $cart->Add($book);
+            session()->put('cart',$cart);
+            return redirect('/books')->with('success' , 'Book added to cart');
+        }
+        return redirect('/books')->with('error' , 'Book is not available now');
     }
 }
