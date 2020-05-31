@@ -47,13 +47,18 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <i class="fa fa-book" aria-hidden="true"></i>
                   <a class="navbar-brand" href="{{ url('/') }}">
+<<<<<<< HEAD
                       
+=======
+                      {{ config('app.name', 'Laravel') }}
+>>>>>>> 1c72dcaaf73924e78e7661785ffbc588cb57eba6
                   </a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                       <span class="navbar-toggler-icon"></span>
                   </button>
 
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<<<<<<< HEAD
                   <ul class="navbar-nav mr-auto">
                      @guest 
                       <li class="nav-item">
@@ -90,6 +95,12 @@
                           
                             @else
                             <li class="nav-item">
+=======
+                      
+                      
+                      <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+>>>>>>> 1c72dcaaf73924e78e7661785ffbc588cb57eba6
                             <a class="nav-link" href="/">Home</a>
                           </li>
                           <li class="nav-item">
@@ -102,6 +113,7 @@
                             <a class="nav-link" href="/books">Books</a>
                           </li>
                           <li class="nav-item">
+<<<<<<< HEAD
                               <a class="nav-link" href="{{route('cart.show')}}">My cart({{session()->has('cart') ? session()->get('cart')->total_qty: '0'}})</a>
                             </li>
                           @endif
@@ -124,6 +136,27 @@
                           <li class="nav-item dropdown">
                                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                       {{ Auth::user()->name }} 
+=======
+					                  <a class="nav-link" href="{{route('cart.show')}}"><span class="fas fa-shopping-cart">My cart({{session()->has('cart') ? session()->get('cart')->total_qty: '0'}})</span></a>
+					                </li>
+                      </ul>
+                      <!-- Right Side Of Navbar -->
+                      <ul class=" navbar-nav navbar-right">
+                          <!-- Authentication Links -->
+                          @guest
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{{ route('login') }}"><span class="glyphicon glyphicon-log-in"> {{ __('Login') }}</a>
+                              </li>
+                              @if (Route::has('register'))
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="{{ route('register') }}"><span class="glyphicon glyphicon-user"> {{ __('Register') }}</a>
+                                  </li>
+                              @endif
+                          @else
+                              <li class="nav-item dropdown">
+                                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                      {{ Auth::user()->name }} <span class="caret"></span>
+>>>>>>> 1c72dcaaf73924e78e7661785ffbc588cb57eba6
                                   </a>
 
                                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -141,7 +174,11 @@
                                   </div>
                               </li>
                           @endguest
+<<<<<<< HEAD
                       </ul>    
+=======
+                      </ul>
+>>>>>>> 1c72dcaaf73924e78e7661785ffbc588cb57eba6
                  
               </div>
           </nav>

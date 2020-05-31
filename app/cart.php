@@ -44,6 +44,7 @@ class cart extends Model
         
         $this->items[$book->id]['qty'] +=1;
     }
+<<<<<<< HEAD
     public function UpdateQty($id, $qty){
         $this->total_qty -= $this->items[$id]['qty'];
         $this->total_price -= $this->items[$id]['qty'] * $this->items[$id]['price'];
@@ -54,4 +55,6 @@ class cart extends Model
         $this->total_price += $qty * $this->items[$id]['price'];
 
     }
+=======
+>>>>>>> 1c72dcaaf73924e78e7661785ffbc588cb57eba6
 }

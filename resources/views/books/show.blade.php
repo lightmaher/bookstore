@@ -63,7 +63,11 @@
 </h3>
   <hr>
   @if(!Auth::guest())
+<<<<<<< HEAD
        @if(auth()->user()->id != 1)
+=======
+       @if(auth()->user()->id == 1)
+>>>>>>> 1c72dcaaf73924e78e7661785ffbc588cb57eba6
   <button type="button" class="btn btn-primary btn-lg">Add to cart </button>
  @endif
     @endif
