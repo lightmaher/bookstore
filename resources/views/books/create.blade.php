@@ -16,8 +16,13 @@
     Add book 
   </div>
   <div class="card-body">
-<form action="/books" method="POST">
+<form action="/books" method="POST" enctype="multipart/form-data">
 {{csrf_field()}}
+
+<div class="form-group">
+    <label name="image">Image</label>
+    <input name="image" type="file" class="form-control">
+</div>
 <div class="form-group">
     <label name="title">Title</label>
     <input name="title" type="text" class="form-control">

@@ -6,14 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-                <a href='/books/create' class='btn btn-primary'>Add Book</a>
-
+                @if(auth()->user()->id == 1)
+                     <a href='/books/create' class='btn btn-primary'>Add Book</a>
+                @endif
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   
 
                     You are logged in!
                 </div>

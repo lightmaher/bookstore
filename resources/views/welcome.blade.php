@@ -69,6 +69,9 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        
+                        <a class="nav-link" href="/books">Books</a>
+                        
                     @else
                         <a href="{{ route('login') }}">Login</a>
 

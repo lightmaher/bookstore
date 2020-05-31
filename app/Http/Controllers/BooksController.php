@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\book;
+use App\cart;
 
 class BooksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin' , ['except' => ['show' , 'AddtoCart' , 'UpdateCart' , 'showcart' , 'index']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $books = book::orderby('created_at','desc')->get();
+        return view('books.index')->with('books',$books);
     }
 
     /**
@@ -37,15 +43,27 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request ,[
+            'image'=>'image|nullable|max:1999',
             'title'=>'required',
             'author'=>'required',
             'body'=>'required',
             'price'=>'required',
             'num_of_books'=>'required',
-            'ISBN'=>'required'
+            'ISBN'=>'required|size:9'
 
         ]);
+        if($request->hasFile('image')){
+            $filenameWithExt=$request->file('image')->getClientOriginalName();
+            $filename=pathinfo($filenameWithExt , PATHINFO_FILENAME);
+            $fileExt=$request->file('image')->getClientOriginalExtension();
+            $filetostore=$filename.'_'.time().'.'.$fileExt;
+            $path=$request->file('image')->storeAs('public/Images' , $filetostore);
+        }else{
+            $filetostore='noimage.jpg';
+        }
+
         $book = new book;
+        $book->image= $filetostore;
         $book->title = $request->input('title');
         $book->author = $request->input('author');
         $book->body = $request->input('body');
@@ -54,7 +72,7 @@ class BooksController extends Controller
         $book->ISBN = $request->input('ISBN');
         $book->save();
 
-        return redirect('/home')->with('success' , 'book added');
+        return redirect('/books')->with('success' , 'book added');
     }
 
     /**
@@ -65,7 +83,8 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = book::find($id);
+        return view('books.show')->with('book',$book);
     }
 
     /**
@@ -91,14 +110,24 @@ class BooksController extends Controller
     {
         $book=book::find($id);
         $this->validate($request , [
+            'image'=>'image|nullable|max:1999',
             'title'=>'required',
             'author'=>'required',
             'body'=>'required',
             'price'=>'required',
             'num_of_books'=>'required',
-            'ISBN'=>'required'
+            'ISBN'=>'required|size:9'
             ]);
-
+        if($request->hasFile('image')){
+            $filenameWithExt=$request->file('image')->getClientOriginalName();
+            $filename=pathinfo($filenameWithExt , PATHINFO_FILENAME);
+            $fileExt=$request->file('image')->getClientOriginalExtension();
+            $filetostore=$filename.'_'.time().'.'.$fileExt;
+            $path=$request->file('image')->storeAs('public/Images' , $filetostore);
+        }
+        if($request->hasFile('image')){
+             $book->image=$filetostore;
+        }
         $book->title=$request->input('title');
         $book->author=$request->input('author');
         $book->body=$request->input('body');
@@ -106,7 +135,7 @@ class BooksController extends Controller
         $book->num_of_books=$request->input('num_of_books');
         $book->ISBN = $request->input('ISBN');
         $book->save();
-        return redirect('/home')->with('success' , 'book Updated');
+        return redirect('/books')->with('success' , 'book Updated');
     }
 
     /**
@@ -117,6 +146,44 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
+            $book = book::find($id);
+            if($book->image!=="noimage.jpg"){
+                Storage::delete('public/Images/'.$book->image);
+            }
+            $book->delete();
+    
+            return redirect('/books')->with('success' , 'Book Deleted');   
     }
+    public function AddtoCart(book $book){
+        if($book->num_of_books > 0)
+        {
+            if(session()->has('cart')){
+            $cart= new cart(session()->get('cart'));
+            }
+            else{
+                $cart = new cart();
+            }
+            $cart->Add($book);
+            session()->put('cart',$cart);
+            return redirect('/books')->with('success' , 'Book added to cart');
+        }
+        return redirect('/books')->with('error' , 'Book is not available now');
+    }
+     public function showcart(){
+        if(session()->has('cart')){
+           $cart= new cart(session()->get('cart'));
+        }
+        else{
+            $cart = new cart();
+        }
+        return view('cart/show')->with('cart',$cart);
+    }
+    public function UpdateCart(Request $request , book $book){
+         
+        $cart = new cart(session()->get('cart'));
+        $cart->UpdateQty($book->id , $request->qty);
+        session()->put('cart' , $cart);
+        return redirect()->route('cart.show')->with('success' , 'Book is updated');
+   }
 }

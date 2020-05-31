@@ -20,6 +20,10 @@
 {{csrf_field()}}
 
 <div class="form-group">
+    <label name="image">Image</label>
+    <input name="image" type="file" class="form-control">
+</div>
+<div class="form-group">
     <label name="title">Title</label>
     <input name="title" type="text" value="{{$book->title}}" class="form-control">
 </div>
