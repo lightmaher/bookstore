@@ -10,7 +10,7 @@ class BooksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin' , ['except' => ['show' , 'AddtoCart' , 'index']]);
+        $this->middleware('admin' , ['except' => ['show' , 'AddtoCart' , 'UpdateCart' , 'showcart' , 'index']]);
     }
     /**
      * Display a listing of the resource.
@@ -179,4 +179,11 @@ class BooksController extends Controller
         }
         return view('cart/show')->with('cart',$cart);
     }
+    public function UpdateCart(Request $request , book $book){
+         
+        $cart = new cart(session()->get('cart'));
+        $cart->UpdateQty($book->id , $request->qty);
+        session()->put('cart' , $cart);
+        return redirect()->route('cart.show')->with('success' , 'Book is updated');
+   }
 }

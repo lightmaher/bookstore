@@ -29,9 +29,9 @@ class LoginController extends Controller
         {
             $user = User::where('email',$request->email)->first();
             if($user->is_admin()){
-                return redirect()->route('home')->with('success' , 'hello home');
+                return redirect()->route('home');
             }
-            return redirect()->route('welcome')->with('success' , 'welcome');
+            return redirect('/books');
         }
         return redirect()->back();
  }
