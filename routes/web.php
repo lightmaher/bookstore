@@ -31,3 +31,4 @@ Route::get('/addtocart/{book}', 'BooksController@AddtoCart')->name('cart.add');
 Route::get('/shopping-cart', 'BooksController@showcart')->name('cart.show');
 route::get('/confirm-cart', 'BooksController@confirm')->name('cart.confirm');
 Route::put('/books/{book}/cart' , 'BooksController@UpdateCart')->name('book.update');
+Route::delete('/books/{book}' , 'BooksController@DeleteFromCart')->name('book.remove');

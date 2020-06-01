@@ -13,6 +13,12 @@
                           			{{$book['title']}}
                           		</h5>
                                 <div class="card-tetx">
+                                  
+                                   <form action="{{route('book.remove' , $book['id'])}}" method="POST" class="pull-right">
+                                        {{csrf_field()}}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <input id="submit" type="submit" value="Delete" class="btn btn-danger">       
+                                    </form> 
                                 	
                                     <form action="{{route('book.update' , $book['id'])}}" method="POST">
                                     {{csrf_field()}}

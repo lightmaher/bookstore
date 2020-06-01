@@ -44,6 +44,17 @@ class cart extends Model
         
         $this->items[$book->id]['qty'] +=1;
     }
+
+
+    public function remove($id){
+        if(array_key_exists($id , $this->items)){
+             $this->total_qty -= $this->items[$id]['qty'];
+             $this->total_price -= $this->items[$id]['qty'] * $this->items[$id]['price'];
+             unset($this->items[$id]);
+        }
+    }
+
+
     public function UpdateQty($id, $qty){
         $this->total_qty -= $this->items[$id]['qty'];
         $this->total_price -= $this->items[$id]['qty'] * $this->items[$id]['price'];

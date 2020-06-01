@@ -10,7 +10,7 @@ class BooksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin' , ['except' => ['show' , 'AddtoCart' , 'UpdateCart' , 'showcart' , 'index']]);
+        $this->middleware('admin' , ['except' => ['show' ,'DeleteFromCart', 'AddtoCart' , 'UpdateCart' , 'showcart' , 'index']]);
     }
     /**
      * Display a listing of the resource.
@@ -178,6 +178,20 @@ class BooksController extends Controller
             $cart = new cart();
         }
         return view('cart/show')->with('cart',$cart);
+    }
+     public function DeleteFromCart(book $book){
+         $cart = new cart(session()->get('cart'));
+         $cart->remove($book->id);
+         session()->forget('cart');
+
+/** 
+         if($cart->total_qty <= 0 ){
+             session()->forget('cart');
+         }
+         else{
+             session()->put('cart' , $cart);
+         }*/
+        return redirect('/shopping-cart')->with('success' , 'Book is Removed');
     }
     public function UpdateCart(Request $request , book $book){
          
