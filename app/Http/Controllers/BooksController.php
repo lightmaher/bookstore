@@ -10,7 +10,7 @@ class BooksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin' , ['except' => ['show' ,'DeleteFromCart', 'AddtoCart' , 'UpdateCart' , 'showcart' , 'index']]);
+        $this->middleware('admin' , ['except' => ['show' ,'DeleteFromCart', 'AddtoCart' , 'UpdateCart' , 'showcart' , 'index' , 'confirm']]);
     }
     /**
      * Display a listing of the resource.
@@ -183,14 +183,6 @@ class BooksController extends Controller
          $cart = new cart(session()->get('cart'));
          $cart->remove($book->id);
          session()->forget('cart');
-
-/** 
-         if($cart->total_qty <= 0 ){
-             session()->forget('cart');
-         }
-         else{
-             session()->put('cart' , $cart);
-         }*/
         return redirect('/shopping-cart')->with('success' , 'Book is Removed');
     }
     public function UpdateCart(Request $request , book $book){
@@ -200,4 +192,16 @@ class BooksController extends Controller
         session()->put('cart' , $cart);
         return redirect()->route('cart.show')->with('success' , 'Book is updated');
    }
+   public function confirm(){
+    $cart = new cart(session()->get('cart'));
+    foreach($cart->items as $boook){
+           $id = $boook['id'];
+           $book=book::find($id);
+           $book->num_of_books -= $boook['qty'];
+           $book->save();
+    }
+    session()->forget('cart');
+    
+    return redirect()->route('cart.show')->with('success' , 'Payment is Done');
+}    
 }

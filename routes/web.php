@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('e-book');
 });
 route::group(['middleware' => 'auth'], function(){
     route::get('/home',function(){
@@ -32,3 +32,5 @@ Route::get('/shopping-cart', 'BooksController@showcart')->name('cart.show');
 route::get('/confirm-cart', 'BooksController@confirm')->name('cart.confirm');
 Route::put('/books/{book}/cart' , 'BooksController@UpdateCart')->name('book.update');
 Route::delete('/books/{book}' , 'BooksController@DeleteFromCart')->name('book.remove');
+route::get('/confirm-cart', 'BooksController@confirm')->name('cart.confirm');
+

@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         @endforeach
-                        <h1><strong>No Items Here</strong></h1>
+                        <p><strong>${{$cart->total_price}}</strong></p>
 
                 </div> 
                 <div class="col-md-4 r-2">

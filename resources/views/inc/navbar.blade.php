@@ -60,10 +60,10 @@
                             <a class="nav-link" href="/">Home</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
+                            <a class="nav-link" href="#">About</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/services">Services</a>
+                            <a class="nav-link" href="#">Services</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="/books">Books</a>
@@ -79,10 +79,10 @@
                             <a class="nav-link" href="/">Home</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
+                            <a class="nav-link" href="#">About</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/services">Services</a>
+                            <a class="nav-link" href="#">Services</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="/books">Books</a>
@@ -93,10 +93,10 @@
                             <a class="nav-link" href="/">Home</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
+                            <a class="nav-link" href="#">About</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/services">Services</a>
+                            <a class="nav-link" href="#">Services</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="/books">Books</a>
