@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<head> <link href="{{ asset('css/siderbar.css') }}" rel="stylesheet">
+ </head>
+     <img class="background" src="/book14.jpg" >
 
    <div class="container">
        <div class="row">
@@ -14,26 +17,27 @@
                           		</h5>
                                 <div class="card-tetx">
                                   
-                                   <form action="{{route('book.remove' , $book['id'])}}" method="POST" class="pull-right">
+                                   <form action="{{route('book.remove' , $book['id'])}}" method="POST">
                                         {{csrf_field()}}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <input id="submit" type="submit" value="Delete" class="btn btn-danger">       
+                                        <input id="submit" type="submit" value="Delete" class="btn btn-danger pull-right">       
                                     </form> 
                                 	
                                     <form action="{{route('book.update' , $book['id'])}}" method="POST">
                                     {{csrf_field()}}
-                                    <input type="text" name="qty" id="qty" value="{{$book['qty']}}">
+                                    <input type="number" name="qty" id="qty" value="{{$book['qty']}}">
 
                                     <input name="_method" type="hidden" value="PUT"/>
                                     <input id="submit" type="submit" value="Edit" class="btn btn-default float-right" style="margin-right:5px;">       
-                                	${{$book['price']}}
 
                                     </from>
+                                    ${{$book['price']}}
+
                                 </div>
                             </div>
                         </div>
                         @endforeach
-                        <p><strong>${{$cart->total_price}}</strong></p>
+                        <p class="text-white"><strong>${{$cart->total_price}}</strong></p>
 
                 </div> 
                 <div class="col-md-4 r-2">

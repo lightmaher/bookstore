@@ -112,7 +112,7 @@ body {
 </div>
 </div>
       <div class="main"  >
-         <div class="col-md-6 col-sm-12">
+         <div class="col-md-6 col-sm-12 text-white">
        
             <div class="login-form">
              
